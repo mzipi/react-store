@@ -11,7 +11,7 @@ function ItemDetailContainer() {
     const { itemQuantity } = useContext(context);
     const { id } = useParams();
     
-    useEffect(()=>{
+    useEffect(() => {
         const docRef = doc(collection(db, "items"), id);
         const consulta = getDoc(docRef);
         consulta.then(i => {
@@ -21,7 +21,7 @@ function ItemDetailContainer() {
             setItem(newProduct);
         });
         consulta.catch(e => alert(e));
-    },[id]);
+    }, [id, itemQuantity]); // Incluye itemQuantity en las dependencias
 
     if(item){
         return(
@@ -34,7 +34,7 @@ function ItemDetailContainer() {
     } else {
         return(
             <div className="spinner-border" role="status">
-                <span class="visually-hidden">Loading...</span>
+                <span className="visually-hidden">Loading...</span>
             </div>
         );
     }
